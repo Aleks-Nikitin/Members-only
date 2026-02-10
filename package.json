@@ -1,0 +1,32 @@
+{
+  "name": "members-only",
+  "version": "1.0.0",
+  "description": "project where members can write anonymous posts, but only members can see who the author of a post is, but outside they can only see the story and wonder who wrote it.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Aleks-Nikitin/Members-only.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Aleks-Nikitin/Members-only/issues"
+  },
+  "homepage": "https://github.com/Aleks-Nikitin/Members-only#readme",
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "connect-pg-simple": "^10.0.0",
+    "dotenv": "^17.2.4",
+    "ejs": "^4.0.1",
+    "express": "^5.2.1",
+    "express-session": "^1.19.0",
+    "passport": "^0.7.0",
+    "passport-local": "^1.0.0",
+    "pg": "^8.18.0"
+  }
+}
