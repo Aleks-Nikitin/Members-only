@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <%-include("partials/nav") %>
+    <%-include("partials/errors") %>
+    <h1><%=title %></h1>
+    <form action="/signup" method="post">
+        <label for="firstname">first name:</label>
+        <input type="text" name="firstname" id="firstname" <%if(locals.user){ %>
+            value="<%=user.firstname %>"
+         <%} %> required>
+
+        <label for="lastname">last name:</label>
+        <input type="text" name="lastname" id="lastname"<%if(locals.user){ %>
+            value="<%=user.lastname%>"
+         <%} %> required>
+
+        <label for="email">email:</label>
+        <input type="email" name="email" id="email"<%if(locals.user){ %>
+            value="<%=user.email %>"
+         <%} %> required>
+
+        <label for="password">password:</label>
+        <input type="password" name="password" id="password" <%if(locals.user){ %>
+            value="<%=user.password %>"
+         <%} %>required>
+        
+
+        <label for="confpassword">Confirm password:</label>
+        <input type="password" name="confpassword" id="confpassword" required>
+
+        <label for="admin">admin:</label>
+        
+        <input type="checkbox" name="admin" id="admin" value="true">
+
+        <button type="submit" id="sbmtBtn">Submit</button>
+    </form>
+
+    <script>
+        const sbmtBtn = document.querySelector("#sbmtBtn");
+        const admin = document.querySelector("#admin");
+        sbmtBtn.addEventListener("click",()=>{
+            const grab=document.getElementById("hdn");
+            if(!admin.checked && !grab){
+                const form = document.querySelector("form");
+                const hdnBtn= document.createElement("input");
+                hdnBtn.setAttribute("value",false);
+                hdnBtn.setAttribute("id","hdn");
+                hdnBtn.setAttribute("type","hidden");
+                 hdnBtn.setAttribute("name","admin");
+                form.appendChild(hdnBtn)
+            }
+        })
+    </script>
+</body>
+</html>
