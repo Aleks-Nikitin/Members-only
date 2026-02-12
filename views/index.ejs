@@ -12,6 +12,18 @@
     <a href="/log-out">LOG OUT</a>
   <% }  %>
     <h1><%=title %></h1>
-
+        <%if(locals.messages){ %>
+            <% messages.forEach(message => { %>
+                <%if(locals.user){ %>
+                    <% if(locals.user.membership){ %>
+                    <h3><%=message.username%></h3>
+                    <h3><%=message.time %></h3>
+                    <% } %>
+                    <% } else{ %>
+                        <h3>Unknown</h3>
+                    <% } %>
+                    <p><%=message.message %></p>
+            <%  }); %>
+        <% } %>
 </body>
 </html>

@@ -11,8 +11,22 @@ async function findUserById(id){
     const {rows}=await pool.query("SELECT * FROM users WHERE id =$1",[id]);
     return rows[0];
 }
+async function addMembership(id){
+    await pool.query("UPDATE users SET membership=$1 WHERE id=$2",[true,id])
+}
+async function postMsg(title,time,msg,authorid){
+    await pool.query("INSERT INTO messages(title,time,message,authorid) VALUES($1,$2,$3,$4)",[title,time,msg,authorid]);
+
+}
+async function getAllMsg(){
+    const{rows}=await pool.query("SELECT messages.id,title,time,message,username FROM messages JOIN users ON messages.authorid = users.id");
+    return rows;
+}
 module.exports={
     postUser,
     findByEmail,
-    findUserById
+    findUserById,
+    addMembership,
+    postMsg,
+    getAllMsg
 }

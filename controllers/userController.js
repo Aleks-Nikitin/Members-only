@@ -24,7 +24,9 @@ const validateUser=[
 
 
 async function getMainPage(req,res) {
-     res.render("index",{title:"Main page",user:req.user})
+    const messages= await db.getAllMsg();
+    console.log(messages);
+     res.render("index",{title:"Main page",user:req.user,messages:messages})
 }
 async function getSignupForm(req,res) {
     res.render("signup",{title:"Sign up:"})
@@ -44,9 +46,47 @@ const postUser= [validateUser,async (req,res,next) => {
 async function getLoginForm(req,res){
     res.render("login",{title:"Login Forn"})
 }
+async function getMembershipForm(req,res){
+    res.render("membership",{title:"Membership form"});
+
+}
+async function getMsgForm(req,res,next){
+    res.render("msgForm",{title:"Create your message"})
+}
+async function postMsg(req,res){
+    const{title,msg}=req.body;
+    const {id} = req.user;
+    const date = Date.now();
+    await db.postMsg(title,date,msg,id);
+    res.redirect("/");
+
+}
+async function isAuth(req,res,next){
+    if(req.isAuthenticated()){
+        next();
+    }else{
+        res.status(401).json({msg:"You are not authorized to view this resource"})
+    }
+}
+async function postMembership(req,res){
+    let keyword="coding";
+    const{passcode}=req.body;
+    if(passcode==keyword && req.user.membership == null){
+        console.log(req.user);
+        await db.addMembership(req.user.id);
+    }
+    console.log(req.user);
+    res.redirect("/");
+}
+
 module.exports={
     getMainPage,
     getSignupForm,
     postUser,
-    getLoginForm
+    getLoginForm,
+    getMembershipForm,
+    postMembership,
+    isAuth,
+    getMsgForm,
+    postMsg
 }
