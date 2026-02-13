@@ -1,21 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head> 
+<%-include("partials/head") %>
 <body>
     <%-include("partials/nav") %>
     <%-include("partials/errors") %>
-    <h1><%=title %></h1>
+    <h1 class="titlePage"><%=title %></h1>
     <form action="/createMsg" method="post">
-        <label for="title">message title:</label>
-        <input type="text" name="title" id="title">
-        <label for="msg">message text:</label>
-        <textarea type="text" name="msg" id="msg"> </textarea>
-        
-        <button type="submit">Submit</button>
+        <div class="formContent">
+            <div class="formBlock">
+                <label for="title">message title:</label>
+                <input type="text" name="title" id="title">
+            </div>
+            <div class="formBlock">
+                <label for="msg">message text:</label>
+                <textarea type="text" name="msg" id="msg"> </textarea>
+                
+            </div>
+        </div>
+        <button type="submit" class="formBtn">Submit</button>
     </form>
 </body>
 </html> 

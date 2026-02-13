@@ -1,38 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
+<%-include("partials/head") %>
 <body>
     <%-include("partials/nav") %>
       <% if (locals.user) {%>
-    <h1>WELCOME BACK <%= user.username %> You have visited this page</h1>
-    <a href="/log-out">LOG OUT</a>
+    <div class="welcome">
+        <h1>WELCOME BACK <span class="user"><%= user.username %></span></h1>
+        <a href="/log-out">LOG OUT</a>
+    </div>
   <% }  %>
-    <h1><%=title %></h1>
+    <h1 class="titlePage"><%=title %></h1>
         <%if(locals.messages){ %>
+            <div class="messageBoardContent">
             <% messages.forEach(message => { %>
-                <%if(locals.user){ %>
-                    <% if(locals.user.membership || locals.user.admin){ %>
-                    <h3><%=message.username%></h3>
-                    <h3><%=message.time %></h3>
-                    <% } else{ %>
-                        <h3>Unknown</h3>
-                        <% } %>
-                    <% } else{ %>
-                        <h3>Unknown</h3>
-                    <% } %>
-                    <h4><%=message.title %></h4>
-                    <p><%=message.message %></p>
-                    <% if(locals.user){ %>
-                    <% if(locals.user.admin){ %>
-                        <a href="/deleteMsg?id=<%=message.id %>"><button type="submit">delete</button></a>
-
-                        <% } %>
-                        <% } %>
+           <div class="messageBlock">
+               
+               <%if(locals.user){ %>
+                   <% if(locals.user.membership || locals.user.admin){ %>
+                   <h3><%=message.username%></h3>
+                   <h3><%=message.time %></h3>
+                   <% } else{ %>
+                       <h3>Unknown</h3>
+                       <% } %>
+                   <% } else{ %>
+                       <h3>Unknown</h3>
+                   <% } %>
+                   <h4><%=message.title %></h4>
+                   <p><%=message.message %></p>
+                   <% if(locals.user){ %>
+                   <% if(locals.user.admin){ %>
+                       <a href="/deleteMsg?id=<%=message.id %>"><button type="submit">delete</button></a>
+                       <% } %>
+                       <% } %>
+           </div>
             <%  }); %>
         <% } %>
+            </div>
 </body>
 </html>

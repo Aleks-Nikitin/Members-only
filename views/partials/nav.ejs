@@ -1,9 +1,11 @@
 <nav>
-    <a href="/">main page</a>
-    <a href="/signup">sign up</a>
-    <a href="/login">login</a>
-    <a href="membership">join the club</a>
-    <% if(locals.user){ %>
-        <a href="createMsg"> create a message</a>
-        <% } %>
+    <div class="findBlock">
+        <a href="/">main page</a>
+        <a href="/signup">sign up</a>
+        <a href="/login">login</a>
+        <a href="membership">join the club</a>
+        <% if(locals.user){ %>
+            <a href="createMsg"> create a message</a>
+            <% } %>
+    </div>
 </nav>

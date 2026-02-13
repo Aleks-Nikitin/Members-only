@@ -1,44 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
+<%-include("partials/head") %>
 <body>
     <%-include("partials/nav") %>
     <%-include("partials/errors") %>
-    <h1><%=title %></h1>
+    <h1 class="titlePage"><%=title %></h1>
     <form action="/signup" method="post">
-        <label for="firstname">first name:</label>
-        <input type="text" name="firstname" id="firstname" <%if(locals.user){ %>
-            value="<%=user.firstname %>"
-         <%} %> required>
-
-        <label for="lastname">last name:</label>
-        <input type="text" name="lastname" id="lastname"<%if(locals.user){ %>
-            value="<%=user.lastname%>"
-         <%} %> required>
-
-        <label for="email">email:</label>
-        <input type="email" name="username" id="email"<%if(locals.user){ %>
-            value="<%=user.username %>"
-         <%} %> required>
-
-        <label for="password">password:</label>
-        <input type="password" name="password" id="password" <%if(locals.user){ %>
-            value="<%=user.password %>"
-         <%} %>required>
-        
-
-        <label for="confpassword">Confirm password:</label>
-        <input type="password" name="confpassword" id="confpassword" required>
-
-        <label for="admin">admin:</label>
-        
-        <input type="checkbox" name="admin" id="admin" value="true">
-
-        <button type="submit" id="sbmtBtn">Submit</button>
+       <div class="formContent">
+           
+           <div class="formBlock">
+               <label for="firstname">first name:</label>
+               <input type="text" name="firstname" id="firstname" <%if(locals.user){ %>
+                   value="<%=user.firstname %>"
+                <%} %> required>
+           </div>
+           <div class="formBlock">
+               <label for="lastname">last name:</label>
+               <input type="text" name="lastname" id="lastname"<%if(locals.user){ %>
+                   value="<%=user.lastname%>"
+                <%} %> required>
+           </div>
+           <div class="formBlock">
+               <label for="email">email:</label>
+               <input type="email" name="username" id="email"<%if(locals.user){ %>
+                   value="<%=user.username %>"
+                <%} %> required>
+           </div>
+           <div class="formBlock">
+               <label for="password">password:</label>
+               <input type="password" name="password" id="password" <%if(locals.user){ %>
+                   value="<%=user.password %>"
+                <%} %>required>
+               
+           </div>
+           <div class="formBlock">
+               <label for="confpassword">Confirm password:</label>
+               <input type="password" name="confpassword" id="confpassword" required>
+           </div>
+           <div class="adminBlock">
+               <label for="admin">admin:</label>
+               
+               <input type="checkbox" name="admin" id="admin" value="true">
+           </div>
+           <button type="submit" id="sbmtBtn" class="formBtn">Submit</button>
+       </div>
     </form>
 
     <script>

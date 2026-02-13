@@ -11,10 +11,11 @@ const indexController=require("./controllers/indexController");
 const indexRouter = require("./routes/indexRouter");
 const pgSession =require("connect-pg-simple")(session);
 const LocalStrategy = require("passport-local").Strategy
-const port= process.env.PORT || 3000;
+const port= process.env.PORT || 8060;
 app.set("view engine","ejs");
 app.set("views",path.join(__dirname,"views"));
 app.use(express.urlencoded({extended:true}))
+app.use(express.static("public"));
 app.use(session({
     saveUninitialized:false,
     store: new pgSession({
@@ -41,9 +42,13 @@ app.post(
 );
 app.use("/",indexRouter,userRouter);
 
-app.listen(port,'localhost',(err)=>{
+app.listen(port,'0.0.0.0',(err)=>{
     if(err){
         throw new Error;
     }
     console.log("server started");
+})
+
+app.use((req,res)=>{
+    res.status(404).render("404",{title:"ERROR 404: Page not found"})
 })

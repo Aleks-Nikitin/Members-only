@@ -25,7 +25,7 @@ const validateUser=[
 
 async function getMainPage(req,res) {
     const messages= await db.getAllMsg();
-     res.render("index",{title:"Main page",user:req.user,messages:messages})
+     res.render("index",{title:"Message Board:",user:req.user,messages:messages})
 } 
 async function getSignupForm(req,res) {
     res.render("signup",{title:"Sign up:"})
@@ -42,7 +42,7 @@ const postUser= [validateUser,async (req,res,next) => {
 }
 ]
 async function getLoginForm(req,res){
-    res.render("login",{title:"Login Forn"})
+    res.render("login",{title:"Login Form"})
 }
 async function getMembershipForm(req,res){
     res.render("membership",{title:"Membership form"});
@@ -79,7 +79,15 @@ async function isAuth(req,res,next){
     if(req.isAuthenticated()){
         next();
     }else{
-        res.status(401).json({msg:"You are not authorized to view this resource"})
+        res.status(401).render("401",{title:"ERROR 401: You are not authorized to view this page"});
+    }
+}
+async function isAdmin(req,res,next){
+    if(req.isAuthenticated() && req.user.admin){
+        next();
+    }
+    else{
+        res.status(401).render("401",{title:"ERROR 401: You are not authorized to view this page"});
     }
 }
 async function postMembership(req,res){
@@ -103,6 +111,7 @@ module.exports={
     getMembershipForm,
     postMembership,
     isAuth,
+    isAdmin,
     getMsgForm,
     postMsg,
     deleteMsg

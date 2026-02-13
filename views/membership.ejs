@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head> 
+<%-include("partials/head") %>
 <body>
     <%-include("partials/nav") %>
     <%-include("partials/errors") %>
-    <h1><%=title %></h1>
+    <h1 class="titlePage"><%=title %></h1>
     <form action="/membership" method="post">
-        <label for="passcode">Enter a passcode to become a member</label>
-        <input type="text" name="passcode" id="passcode">
-        
-        <button type="submit">Submit</button>
+        <div class="formContent">
+
+            <div class="formBlock">
+                <label for="passcode">Enter a passcode to become a member</label>
+                <input type="text" name="passcode" id="passcode">
+            </div>
+        </div>
+
+        <button type="submit" class="formBtn">Submit</button>
     </form>
 </body>
 </html>

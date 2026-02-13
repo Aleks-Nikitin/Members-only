@@ -9,6 +9,6 @@ userRouter.get("/login",userController.getLoginForm);
 userRouter.get("/membership",userController.isAuth,userController.getMembershipForm);
 userRouter.post("/membership",userController.isAuth,userController.postMembership);
 userRouter.get("/createMsg",userController.isAuth,userController.getMsgForm);
-userRouter.post("/createMsg",userController.postMsg);
-userRouter.get("/deleteMsg",userController.deleteMsg)
+userRouter.post("/createMsg",userController.isAuth,userController.postMsg);
+userRouter.get("/deleteMsg",userController.isAdmin,userController.deleteMsg)
 module.exports=userRouter;
