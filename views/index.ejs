@@ -15,14 +15,23 @@
         <%if(locals.messages){ %>
             <% messages.forEach(message => { %>
                 <%if(locals.user){ %>
-                    <% if(locals.user.membership){ %>
+                    <% if(locals.user.membership || locals.user.admin){ %>
                     <h3><%=message.username%></h3>
                     <h3><%=message.time %></h3>
-                    <% } %>
+                    <% } else{ %>
+                        <h3>Unknown</h3>
+                        <% } %>
                     <% } else{ %>
                         <h3>Unknown</h3>
                     <% } %>
+                    <h4><%=message.title %></h4>
                     <p><%=message.message %></p>
+                    <% if(locals.user){ %>
+                    <% if(locals.user.admin){ %>
+                        <a href="/deleteMsg?id=<%=message.id %>"><button type="submit">delete</button></a>
+
+                        <% } %>
+                        <% } %>
             <%  }); %>
         <% } %>
 </body>

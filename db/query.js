@@ -22,11 +22,15 @@ async function getAllMsg(){
     const{rows}=await pool.query("SELECT messages.id,title,time,message,username FROM messages JOIN users ON messages.authorid = users.id");
     return rows;
 }
+async function deleteMsg(msgId) {
+    await pool.query("DELETE FROM messages WHERE id =$1",[msgId]);
+}
 module.exports={
     postUser,
     findByEmail,
     findUserById,
     addMembership,
     postMsg,
-    getAllMsg
+    getAllMsg,
+    deleteMsg
 }

@@ -25,15 +25,13 @@ const validateUser=[
 
 async function getMainPage(req,res) {
     const messages= await db.getAllMsg();
-    console.log(messages);
      res.render("index",{title:"Main page",user:req.user,messages:messages})
-}
+} 
 async function getSignupForm(req,res) {
     res.render("signup",{title:"Sign up:"})
 }
 const postUser= [validateUser,async (req,res,next) => {
     const errors=validationResult(req);
-       console.log(req.body)
     if(!errors.isEmpty()){
         return res.render("signup",{title:"sign up",errors:errors.array(),user:req.body})
     }
@@ -53,10 +51,26 @@ async function getMembershipForm(req,res){
 async function getMsgForm(req,res,next){
     res.render("msgForm",{title:"Create your message"})
 }
+function getFormattedDate(){
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    let mm = today.getMonth() + 1; // Months start at 0!
+    let dd = today.getDate();
+    let hh = today.getHours();
+    let min = today.getMinutes();
+     if (hh< 10) hh = '0' + hh;
+    if (min< 10) min = '0' + min;
+    if (dd < 10) dd = '0' + dd;
+    if (mm < 10) mm = '0' + mm;
+
+    const formattedToday = `${hh}:${min}  ${mm}/${dd}/${yyyy}`;
+    return formattedToday;
+}
 async function postMsg(req,res){
     const{title,msg}=req.body;
     const {id} = req.user;
-    const date = Date.now();
+    
+    const date = getFormattedDate();
     await db.postMsg(title,date,msg,id);
     res.redirect("/");
 
@@ -72,13 +86,15 @@ async function postMembership(req,res){
     let keyword="coding";
     const{passcode}=req.body;
     if(passcode==keyword && req.user.membership == null){
-        console.log(req.user);
         await db.addMembership(req.user.id);
     }
-    console.log(req.user);
     res.redirect("/");
 }
-
+async function deleteMsg(req,res) {
+    const{id}=req.query;
+    await db.deleteMsg(id);
+    res.redirect("/");
+}
 module.exports={
     getMainPage,
     getSignupForm,
@@ -88,5 +104,6 @@ module.exports={
     postMembership,
     isAuth,
     getMsgForm,
-    postMsg
+    postMsg,
+    deleteMsg
 }
