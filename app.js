@@ -22,7 +22,7 @@ app.use(session({
         pool:pool,
         tableName:"session"
     }),
-    secret:process.env.SECRET,
+    secret:"secret something",
     resave:false,
     cookie:{maxAge:30 * 24 * 60 * 60 * 1000}
 
